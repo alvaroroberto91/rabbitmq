@@ -7,5 +7,5 @@ router.get('/', (req, res) => {
     res.status(200).send("Hello World")
 });
 
-router.post('/send-message', messageController);
+router.post('/save-data', messageController);
 module.exports = router
