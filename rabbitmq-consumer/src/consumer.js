@@ -11,7 +11,12 @@ async function consumer() {
     const connection = await amqp.connect('amqp://guest:guest@localhost:5672/');
     const channel = await connection.createChannel();
     const queueName = 'queue-test';
-    await channel.assertQueue(queueName);
+    await channel.assertQueue(queueName, {
+        durable: true,
+        arguments: {
+            'x-queue-mode': 'lazy'
+        }
+    });
     
     await channel.consume(queueName, (templateParams) => {
         const data = JSON.parse(templateParams.content.toString());
